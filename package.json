@@ -19,6 +19,8 @@
         "vue": "^2.1.10"
     },
     "dependencies": {
+        "animate.css": "^3.5.2",
+        "font-awesome": "^4.7.0",
         "state-machine": "^1.0.1",
         "vue-router": "^2.7.0",
         "vuex": "^2.4.1"

@@ -11,6 +11,6 @@
 |
 */
 
-Route::get('/reservation', function () {
+Route::get('/', function () {
     return view('reservation.index');
 });

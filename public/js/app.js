@@ -70,12 +70,8 @@
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ReservationSteps_FirstStep_vue__ = __webpack_require__("./resources/assets/js/components/ReservationSteps/FirstStep.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ReservationSteps_FirstStep_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__ReservationSteps_FirstStep_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ReservationSteps_SecondStep_vue__ = __webpack_require__("./resources/assets/js/components/ReservationSteps/SecondStep.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ReservationSteps_SecondStep_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__ReservationSteps_SecondStep_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_state_machine__ = __webpack_require__("./node_modules/state-machine/dist/state-machine.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_state_machine___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_state_machine__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_state_machine__ = __webpack_require__("./node_modules/state-machine/dist/state-machine.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_state_machine___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_state_machine__);
 //
 //
 //
@@ -83,77 +79,33 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-
-
+//
+//
+//
+//
+//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'reservation',
-  components: { FirstStep: __WEBPACK_IMPORTED_MODULE_0__ReservationSteps_FirstStep_vue___default.a, SecondStep: __WEBPACK_IMPORTED_MODULE_1__ReservationSteps_SecondStep_vue___default.a },
   mounted: function mounted() {
-    var fsm = new __WEBPACK_IMPORTED_MODULE_2_state_machine__["StateMachine"]({
+    var fsm = new __WEBPACK_IMPORTED_MODULE_0_state_machine__["StateMachine"]({
       transitions: ['next : first > second > third', 'back : first < second < third']
     });
 
     this.$store.commit('setFsm', fsm);
-    this.$store.commit('setStateHelper', __WEBPACK_IMPORTED_MODULE_2_state_machine__["StateHelper"].object(fsm).data);
+    this.$store.commit('setStateHelper', __WEBPACK_IMPORTED_MODULE_0_state_machine__["StateHelper"].object(fsm).data);
   },
 
   computed: {
     state: function state() {
       return this.$store.getters.stateHelper;
     }
-  }
-});
-
-/***/ }),
-
-/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/ReservationSteps/FirstStep.vue":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'first-step',
+  },
   methods: {
-    navigate: function navigate() {
-      this.$store.dispatch('navigate', 'next');
-    }
-  }
-});
-
-/***/ }),
-
-/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/ReservationSteps/SecondStep.vue":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'second-step',
-  methods: {
-    navigate: function navigate() {
-      this.$store.dispatch('navigate', 'next');
+    navigate: function navigate(to) {
+      this.$store.dispatch('navigate', to);
     }
   }
 });
@@ -2938,15 +2890,44 @@ module.exports = function normalizeComponent (
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-32932bb7\",\"hasScoped\":false}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/ReservationSteps/FirstStep.vue":
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-4c122023\",\"hasScoped\":false}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/Reservation.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("section", [
-    _vm._v("\n  FirstStep\n  "),
+  return _c("div", [
+    _c(
+      "div",
+      {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.state && _vm.state.is.first,
+            expression: "state && state.is.first"
+          }
+        ]
+      },
+      [_vm._v("\n    Primer Paso\n  ")]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.state && _vm.state.is.second,
+            expression: "state && state.is.second"
+          }
+        ]
+      },
+      [_vm._v("\n    Segundo Paso\n  ")]
+    ),
+    _vm._v(" "),
     _c(
       "button",
       {
@@ -2954,11 +2935,11 @@ var render = function() {
         on: {
           click: function($event) {
             $event.preventDefault()
-            _vm.navigate($event)
+            _vm.navigate("next")
           }
         }
       },
-      [_vm._v("Siguiente")]
+      [_vm._v("Continuar")]
     )
   ])
 }
@@ -2968,75 +2949,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-32932bb7", module.exports)
-  }
-}
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-47d93256\",\"hasScoped\":false}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/ReservationSteps/SecondStep.vue":
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("section", [_vm._v("\n  SecondStep\n")])
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-47d93256", module.exports)
-  }
-}
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-785d9f4d\",\"hasScoped\":false}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/Reservation.vue":
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c("first-step", {
-        directives: [
-          {
-            name: "show",
-            rawName: "v-show",
-            value: _vm.state && _vm.state.is.first,
-            expression: "state && state.is.first"
-          }
-        ]
-      }),
-      _vm._v(" "),
-      _c("second-step", {
-        directives: [
-          {
-            name: "show",
-            rawName: "v-show",
-            value: _vm.state && _vm.state.is.second,
-            expression: "state && state.is.second"
-          }
-        ]
-      })
-    ],
-    1
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-785d9f4d", module.exports)
+     require("vue-hot-reload-api").rerender("data-v-4c122023", module.exports)
   }
 }
 
@@ -14226,7 +14139,7 @@ var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/comp
 /* script */
 var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/Reservation.vue")
 /* template */
-var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-785d9f4d\",\"hasScoped\":false}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/Reservation.vue")
+var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-4c122023\",\"hasScoped\":false}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/Reservation.vue")
 /* styles */
 var __vue_styles__ = null
 /* scopeId */
@@ -14251,103 +14164,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-785d9f4d", Component.options)
+    hotAPI.createRecord("data-v-4c122023", Component.options)
   } else {
-    hotAPI.reload("data-v-785d9f4d", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-
-/***/ "./resources/assets/js/components/ReservationSteps/FirstStep.vue":
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
-/* script */
-var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/ReservationSteps/FirstStep.vue")
-/* template */
-var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-32932bb7\",\"hasScoped\":false}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/ReservationSteps/FirstStep.vue")
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources/assets/js/components/ReservationSteps/FirstStep.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] FirstStep.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-32932bb7", Component.options)
-  } else {
-    hotAPI.reload("data-v-32932bb7", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-
-/***/ "./resources/assets/js/components/ReservationSteps/SecondStep.vue":
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
-/* script */
-var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/ReservationSteps/SecondStep.vue")
-/* template */
-var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-47d93256\",\"hasScoped\":false}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/ReservationSteps/SecondStep.vue")
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources/assets/js/components/ReservationSteps/SecondStep.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] SecondStep.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-47d93256", Component.options)
-  } else {
-    hotAPI.reload("data-v-47d93256", Component.options)
+    hotAPI.reload("data-v-4c122023", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true

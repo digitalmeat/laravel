@@ -1,18 +1,20 @@
 <template>
   <div>
-    <first-step v-show="state && state.is.first"></first-step>
-    <second-step v-show="state && state.is.second"></second-step>
+    <div v-show="state && state.is.first">
+      Primer Paso
+    </div>
+    <div v-show="state && state.is.second">
+      Segundo Paso
+    </div>
+    <button class="btn btn-primary" @click.prevent="navigate('next')">Continuar</button>
   </div>
 </template>
 
 <script>
-  import FirstStep from './ReservationSteps/FirstStep.vue';
-  import SecondStep from './ReservationSteps/SecondStep.vue';
   import {StateMachine, StateHelper} from 'state-machine';
 
   export default {
     name: 'reservation',
-    components: {FirstStep, SecondStep},
     mounted() {
       let fsm = new StateMachine({
         transitions: [
@@ -27,6 +29,11 @@
     computed: {
       state() {
         return this.$store.getters.stateHelper;
+      }
+    },
+    methods: {
+      navigate(to) {
+        this.$store.dispatch('navigate', to);
       }
     }
   }
